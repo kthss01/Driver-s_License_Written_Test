@@ -1,3 +1,4 @@
+package Test;
 import java.awt.EventQueue;
 
 import javax.swing.ButtonGroup;
@@ -61,19 +62,13 @@ public class WindowBuilder {
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 1280, 720);
 		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(45, 10, 1274, 691);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
-		
-		textArea = new JTextArea();
-		textArea.setEditable(false);
-		textArea.setLineWrap(true);
-		textArea.setFont(new Font("Monospaced", Font.PLAIN, 74));
-		textArea.setBounds(109, 87, 765, 219);
 		//panel.add(textArea);
 		
 		JTextArea textArea_1 = new JTextArea();
@@ -107,9 +102,14 @@ public class WindowBuilder {
 		panel.add(textArea_2);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(92, 57, 664, 274);
-		scrollPane.setViewportView(textArea);
+		scrollPane.setBounds(130, 56, 664, 274);
 		panel.add(scrollPane);
+		
+		textArea = new JTextArea();
+		scrollPane.setViewportView(textArea);
+		textArea.setEditable(false);
+		textArea.setLineWrap(true);
+		textArea.setFont(new Font("Monospaced", Font.PLAIN, 74));
 		
 
 	}
