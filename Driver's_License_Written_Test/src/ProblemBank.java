@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Random;
 
 /**
  * @author Kay
@@ -59,13 +59,16 @@ public class ProblemBank {
 
 	ProblemBank() throws IOException {
 		load();
-		pickProblems();
+		
+		selectedProblems = new ArrayList<Problem>();
+		//pickProblems();
 	}
 
+	// 일단 사용하지말자
 	@Override
 	protected void finalize() throws Throwable {
 		super.finalize();
-		writeUserData();
+		// writeUserData();
 	}
 
 	private static void load() throws IOException {
@@ -149,14 +152,47 @@ public class ProblemBank {
 		br.close();
 	}
 
-	private void pickProblems() {
+	public void pickProblems() {
 		// 읽어온 모든 문제 중 40문제 선택하기 - 랜덤하게 하면 좋을 듯 우선은 앞에서 40개만
-		selectedProblems = new ArrayList<Problem>();
+		selectedProblems.clear();
 
 		int cnt = 40; // 40개만
+//		for (int i = 0; i < cnt; i++) {
+//			selectedProblems.add(allProblems.get(i));
+//			selectedProblems.get(i).pickCnt++;
+//		}
+
+		int[] num = new int[allProblems.size()];
+		for (int i = 0; i < allProblems.size(); i++)
+			num[i] = i;
+
+		// test
+//		for (int i : num) {
+//			System.out.print(i + " ");
+//		}
+//		System.out.println();
+
+		Random rd = new Random();
+
+		for (int i = 0; i < 100; i++) {
+			int x = rd.nextInt(num.length);
+			int y = rd.nextInt(num.length);
+
+			int temp = num[x];
+			num[x] = num[y];
+			num[y] = temp;
+		}
+
+		// random 잘되었는지 테스트
+//		for (int i : num) {
+//			System.out.print(i + " ");
+//		}
+//		System.out.println();
+
 		for (int i = 0; i < cnt; i++) {
-			selectedProblems.add(allProblems.get(i));
+			selectedProblems.add(allProblems.get(num[i]));
 			selectedProblems.get(i).pickCnt++;
+			//selectedProblems.get(i).problem = (i + 1) + "번 -" + selectedProblems.get(i).problem;
 		}
 	}
 
@@ -166,25 +202,30 @@ public class ProblemBank {
 
 	public void updateProblem(int num, ArrayList<String> userSelect) {
 		Problem p = selectedProblems.get(num);
-		
-		Collections.sort(userSelect);
-		
+
+		// sort할 필요없음 그냥 정렬되서 들어옴
+		// Collections.sort(userSelect);
+
 		p.userSelect.clear();
 		for (String string : userSelect) {
 			p.userSelect.add(string);
 		}
 	}
-	
-	public void checkAnswer() {
+
+	public double checkAnswer() {
+		int sum = 0;
 		// 정답 확인
 		for (Problem problem : selectedProblems) {
 			problem.checkCnt++;
-			if (problem.isCollect())
+			if (problem.isCollect()) {
 				problem.answerCnt++;
+				sum++;
+			}
 		}
+		return (double) sum / 40.0 * 100.0;
 	}
 
-	private void writeUserData() throws FileNotFoundException {
+	public void writeUserData() throws FileNotFoundException {
 		PrintWriter pw = new PrintWriter(userDataPath);
 		for (Problem problem : allProblems) {
 			String data = problem.pickCnt + " " + problem.checkCnt + " " + problem.answerCnt;
@@ -193,7 +234,7 @@ public class ProblemBank {
 		pw.close();
 	}
 
-	private void initUserData() throws FileNotFoundException {
+	public void initUserData() throws FileNotFoundException {
 		PrintWriter pw = new PrintWriter(userDataPath);
 		for (Problem problem : allProblems) {
 			String data = 0 + " " + 0 + " " + 0;
@@ -223,7 +264,7 @@ public class ProblemBank {
 			System.out.println();
 		}
 
-		//bank.initUserData();
+		// bank.initUserData();
 		bank.finalize();
 	}
 }
