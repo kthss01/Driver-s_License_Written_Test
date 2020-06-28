@@ -373,7 +373,7 @@ public class Application {
 
 		JTextArea textArea = new JTextArea();
 		textArea.setText(
-				" \uC6B4\uC804\uBA74\uD5C8 \uC2DC\uD5D8 \uD544\uAE30 App\r\n\r\n \uAC1C\uBC1C \uAE30\uAC04 : 2020.06.24(\uC218) ~ 06.28(\uC77C)\r\n \uAC1C\uBC1C \uC5B8\uC5B4 : Java (Swing)\r\n github.com/kthss01/Driver-s_License_Written_Test\r\n  ");
+				" \uC6B4\uC804\uBA74\uD5C8 \uC2DC\uD5D8 \uD544\uAE30 App\r\n\r\n \uAC1C\uBC1C \uAE30\uAC04 : 2020.06.24(\uC218) ~ 06.28(\uC77C)\r\n \uAC1C\uBC1C \uC5B8\uC5B4 : Java (Swing)\r\n github.com/kthss01/Driver-s_License_Written_Test\r\n https://youtu.be/PsoAaB3XQVM");
 		textArea.setFont(new Font("±¼¸²Ã¼", Font.PLAIN, 18));
 		textArea.setEditable(false);
 		textArea.setBounds(735, 367, 469, 139);
