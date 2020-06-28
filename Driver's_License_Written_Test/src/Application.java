@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 public class Application {
 
@@ -73,6 +74,13 @@ public class Application {
 //		} catch (FileNotFoundException e) {
 //			e.printStackTrace();
 //		}
+
+		for (JRadioButton[] jRadioButtons : rdBtnList) {
+			for (int i = 0; i < jRadioButtons.length; i++) {
+				jRadioButtons[i].setSelected(false);
+			}
+
+		}
 
 		setProblem();
 	}
@@ -271,7 +279,7 @@ public class Application {
 					Application window = new Application();
 					window.frmLicenseTest.setVisible(true);
 
-					//initProblem();
+					// initProblem();
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -300,6 +308,7 @@ public class Application {
 		frmLicenseTest.getContentPane().setLayout(null);
 
 		JPanel panelMain = new JPanel();
+		panelMain.setBackground(UIManager.getColor("Button.background"));
 		panelMain.setBounds(0, 0, 1274, 691);
 		frmLicenseTest.getContentPane().add(panelMain);
 		panelMain.setLayout(null);
@@ -333,13 +342,13 @@ public class Application {
 
 		dimg = img.getScaledInstance(lblLicense.getWidth(), lblLicense.getHeight(), Image.SCALE_SMOOTH);
 		lblLicense.setIcon(new ImageIcon(dimg));
-		
+
 		JButton btnStart = new JButton("\uBB38\uC81C \uD480\uAE30");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				bank.pickProblems();
 				initProblem();
-				
+
 				panelMain.setVisible(false);
 				panelTest.setVisible(true);
 			}
@@ -347,7 +356,7 @@ public class Application {
 		btnStart.setFont(new Font("±¼¸²Ã¼", Font.BOLD, 18));
 		btnStart.setBounds(958, 526, 246, 40);
 		panelMain.add(btnStart);
-		
+
 		JButton btnUserDataInit = new JButton("\uC0AC\uC6A9\uC790 \uB370\uC774\uD130 \uCD08\uAE30\uD654");
 		btnUserDataInit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -361,9 +370,10 @@ public class Application {
 		btnUserDataInit.setFont(new Font("±¼¸²Ã¼", Font.BOLD, 18));
 		btnUserDataInit.setBounds(958, 586, 246, 40);
 		panelMain.add(btnUserDataInit);
-		
+
 		JTextArea textArea = new JTextArea();
-		textArea.setText(" \uC6B4\uC804\uBA74\uD5C8 \uC2DC\uD5D8 \uD544\uAE30 App\r\n\r\n \uAC1C\uBC1C \uAE30\uAC04 : 2020.06.24(\uC218) ~ 06.28(\uC77C)\r\n \uAC1C\uBC1C \uC5B8\uC5B4 : Java (Swing)\r\n github.com/kthss01/Driver-s_License_Written_Test\r\n  ");
+		textArea.setText(
+				" \uC6B4\uC804\uBA74\uD5C8 \uC2DC\uD5D8 \uD544\uAE30 App\r\n\r\n \uAC1C\uBC1C \uAE30\uAC04 : 2020.06.24(\uC218) ~ 06.28(\uC77C)\r\n \uAC1C\uBC1C \uC5B8\uC5B4 : Java (Swing)\r\n github.com/kthss01/Driver-s_License_Written_Test\r\n  ");
 		textArea.setFont(new Font("±¼¸²Ã¼", Font.PLAIN, 18));
 		textArea.setEditable(false);
 		textArea.setBounds(735, 367, 469, 139);
@@ -391,67 +401,9 @@ public class Application {
 		panelTest.add(scrollPaneAnswers);
 
 		panelAnswers = new JPanel();
+		panelAnswers.setBackground(Color.WHITE);
 		scrollPaneAnswers.setViewportView(panelAnswers);
 		panelAnswers.setLayout(new GridLayout(40, 5, 0, 0));
-
-		rdBtnList = new ArrayList<JRadioButton[]>();
-		btnProblemNums = new JButton[40];
-
-		for (int i = 0; i < 40; i++) {
-			btnProblemNums[i] = new JButton("" + (i + 1));
-			btnProblemNums[i].addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					JButton b = (JButton) e.getSource();
-					currentProblemNum = Integer.valueOf(b.getText()) - 1;
-					setProblem();
-				}
-			});
-
-			panelAnswers.add(btnProblemNums[i]);
-			JRadioButton[] rdBtns = new JRadioButton[4];
-			rdBtns[0] = new JRadioButton("a");
-			rdBtns[0].setActionCommand("" + i);
-			rdBtns[0].addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					JRadioButton rb = (JRadioButton) e.getSource();
-					checkUserSelect(Integer.valueOf(rb.getActionCommand()), 0, true);
-				}
-			});
-
-			rdBtns[1] = new JRadioButton("b");
-			rdBtns[1].setActionCommand("" + i);
-			rdBtns[1].addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					JRadioButton rb = (JRadioButton) e.getSource();
-					checkUserSelect(Integer.valueOf(rb.getActionCommand()), 1, true);
-				}
-			});
-
-			rdBtns[2] = new JRadioButton("c");
-			rdBtns[2].setActionCommand("" + i);
-			rdBtns[2].addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					JRadioButton rb = (JRadioButton) e.getSource();
-					checkUserSelect(Integer.valueOf(rb.getActionCommand()), 2, true);
-				}
-			});
-
-			rdBtns[3] = new JRadioButton("d");
-			rdBtns[3].setActionCommand("" + i);
-			rdBtns[3].addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					JRadioButton rb = (JRadioButton) e.getSource();
-					checkUserSelect(Integer.valueOf(rb.getActionCommand()), 3, true);
-				}
-			});
-			rdBtnList.add(rdBtns);
-
-			panelAnswers.add(rdBtnList.get(i)[0]);
-			panelAnswers.add(rdBtnList.get(i)[1]);
-			panelAnswers.add(rdBtnList.get(i)[2]);
-			panelAnswers.add(rdBtnList.get(i)[3]);
-		}
 
 		scrollPaneHint = new JScrollPane();
 		scrollPaneHint.setBounds(48, 501, 846, 115);
@@ -526,7 +478,7 @@ public class Application {
 		panelRadioBtn.setLayout(new GridLayout(4, 0, 0, 0));
 
 		rdBtnA = new JRadioButton("New radio button");
-		rdBtnA.setBackground(Color.WHITE);
+		rdBtnA.setBackground(UIManager.getColor("Button.background"));
 		rdBtnA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				checkUserSelect(currentProblemNum, 0, false);
@@ -621,22 +573,8 @@ public class Application {
 			public void actionPerformed(ActionEvent e) {
 
 				for (int i = 0; i < 40; i++) {
-					Problem p = bank.getProblem(i);
-					for (int j = 0; j < p.answer.size(); j++) {
-						switch (p.answer.get(j)) {
-						case "a":
-							rdBtnList.get(i)[0].setBackground(new Color(240, 240, 240));
-							break;
-						case "b":
-							rdBtnList.get(i)[1].setBackground(new Color(240, 240, 240));
-							break;
-						case "c":
-							rdBtnList.get(i)[2].setBackground(new Color(240, 240, 240));
-							break;
-						case "d":
-							rdBtnList.get(i)[3].setBackground(new Color(240, 240, 240));
-							break;
-						}
+					for (int j = 0; j < 4; j++) {
+						rdBtnList.get(i)[j].setBackground(new Color(240, 240, 240));
 					}
 				}
 			}
@@ -644,5 +582,64 @@ public class Application {
 		btnCheatCancel.setFont(new Font("±¼¸²", Font.BOLD, 14));
 		btnCheatCancel.setBounds(1018, 10, 75, 23);
 		panelTest.add(btnCheatCancel);
+
+		rdBtnList = new ArrayList<JRadioButton[]>();
+		btnProblemNums = new JButton[40];
+
+		for (int i = 0; i < 40; i++) {
+			btnProblemNums[i] = new JButton("" + (i + 1));
+			btnProblemNums[i].addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					JButton b = (JButton) e.getSource();
+					currentProblemNum = Integer.valueOf(b.getText()) - 1;
+					setProblem();
+				}
+			});
+
+			panelAnswers.add(btnProblemNums[i]);
+			JRadioButton[] rdBtns = new JRadioButton[4];
+			rdBtns[0] = new JRadioButton("a");
+			rdBtns[0].setActionCommand("" + i);
+			rdBtns[0].addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JRadioButton rb = (JRadioButton) e.getSource();
+					checkUserSelect(Integer.valueOf(rb.getActionCommand()), 0, true);
+				}
+			});
+
+			rdBtns[1] = new JRadioButton("b");
+			rdBtns[1].setActionCommand("" + i);
+			rdBtns[1].addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JRadioButton rb = (JRadioButton) e.getSource();
+					checkUserSelect(Integer.valueOf(rb.getActionCommand()), 1, true);
+				}
+			});
+
+			rdBtns[2] = new JRadioButton("c");
+			rdBtns[2].setActionCommand("" + i);
+			rdBtns[2].addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JRadioButton rb = (JRadioButton) e.getSource();
+					checkUserSelect(Integer.valueOf(rb.getActionCommand()), 2, true);
+				}
+			});
+
+			rdBtns[3] = new JRadioButton("d");
+			rdBtns[3].setActionCommand("" + i);
+			rdBtns[3].addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JRadioButton rb = (JRadioButton) e.getSource();
+					checkUserSelect(Integer.valueOf(rb.getActionCommand()), 3, true);
+				}
+			});
+			rdBtnList.add(rdBtns);
+
+			panelAnswers.add(rdBtnList.get(i)[0]);
+			panelAnswers.add(rdBtnList.get(i)[1]);
+			panelAnswers.add(rdBtnList.get(i)[2]);
+			panelAnswers.add(rdBtnList.get(i)[3]);
+		}
 	}
 }

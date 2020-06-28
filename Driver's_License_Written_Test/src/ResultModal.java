@@ -30,7 +30,7 @@ public class ResultModal extends JDialog {
 		scrollPaneAnswers.setViewportView(panelAnswers);
 		panelAnswers.setLayout(new GridLayout(41, 4, 0, 0));
 
-		JTextField textFieldAnswers = new JTextField("점수: " + score);
+		JTextField textFieldAnswers = new JTextField(String.format("점수 %.2f", score));
 		textFieldAnswers.setFont(new Font("굴림체", Font.BOLD, 20));
 		textFieldAnswers.setBounds(55, 20, 120, 50);
 		textFieldAnswers.setEditable(false);
